@@ -93,21 +93,21 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
         self.navigationController!.navigationBar.translucent = false
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: TableSectionHeaderTextColorYellow]
             // Create the colors
-        var lightOp: UIColor = backgroundColorGradientTop
-        var darkOp: UIColor = backgroundColorGradientBottom
+        let lightOp: UIColor = backgroundColorGradientTop
+        let darkOp: UIColor = backgroundColorGradientBottom
             // Create the gradient
-        var gradient: CAGradientLayer = CAGradientLayer.layer()
+        let gradient: CAGradientLayer = CAGradientLayer.layer()
         // Set colors
         gradient.colors = [(lightOp.CGColor as AnyObject), (darkOp.CGColor as AnyObject)]
         // Set bounds
         gradient.frame = self.view.bounds
-        var gradientImage: UIImage = self.imageFromLayer(gradient)
-        var worldBGImage: UIImage = UIImage(named: "blue-background.png")!
-        var size: CGSize = CGSizeMake(gradientImage.size.width, gradientImage.size.height)
+        let gradientImage: UIImage = self.imageFromLayer(gradient)
+        let worldBGImage: UIImage = UIImage(named: "blue-background.png")!
+        let size: CGSize = CGSizeMake(gradientImage.size.width, gradientImage.size.height)
         worldBGImage.drawInRect(CGRectMake(0, 0, size.width, size.height))
         gradientImage.drawInRect(CGRectMake(0, 0, size.width, size.height))
             //    [worldBGImage drawInRect:CGRectMake(0,0,size.width, size.height)];
-        var finalImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let finalImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         self.tableView.backgroundView = UIImageView(image: finalImage)
         //    [notesField setBackgroundColor:[UIColor clearColor]];
@@ -121,7 +121,8 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
     ///synthesize properties
     ///we display current date and time when we present the addnotevewcontroller to user
 
-    convenience required init(coder aDecoder: NSCoder) {
+    convenience required init(coder a
+        Decoder: NSCoder) {
         if (self.init(coder: aDecoder)) {
             notes = ""
             shouldRemind = true
@@ -140,8 +141,8 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
     override func viewDidLoad() {
         super.viewDidLoad()
             ///wecreate
-        var doneButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done")
-        var shareButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "shareButtonClicked:")
+        var doneButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(AddNoteViewController.done))
+        var shareButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(AddNoteViewController.shareButtonClicked(_:)))
         self.navigationItem.rightBarButtonItems = [doneButton, shareButton]
         ///we check whether it is editing mode or adding mode, then set the title and fields appropriately.
         if self.itemToEdit != nil {

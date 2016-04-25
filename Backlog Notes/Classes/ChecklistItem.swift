@@ -59,14 +59,14 @@ class ChecklistItem: NSObject, NSCoding {
     ///We need to assign an id for each item.
 
     convenience override init() {
-        if self.init() {
+        if self.dynamicType.init() {
             self.itemId = DataModel.nextChecklistItemId()
         }
     }
     ///We need to assign an id for each item so that we can easily identify.
 
     func notificationForThisItem() -> UILocalNotification {
-        var allNotifications: [AnyObject] = UIApplication.sharedApplication().scheduledLocalNotifications()
+        var allNotifications: [AnyObject] = UIApplication.sharedApplication().scheduledLocalNotifications!()
         for notification: UILocalNotification in allNotifications {
             var number: Int = (notification.userInfo!["ItemID"] as! Int)
             if number != nil && CInt(number)! == self.itemId {

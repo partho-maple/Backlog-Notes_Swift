@@ -72,8 +72,9 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
         components.hour = -24
         components.minute = 0
         components.second = 0
+        let unitFlags2: NSCalendarUnit = [.Year, .Month, .Weekday, .Day]
         var yesterday: NSDate = cal.dateByAddingComponents(components, toDate: today, options: NSCalendarOptions(rawValue: 0))!
-        components = cal.components(NSWeekdayCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit, fromDate: NSDate())
+        components = cal.components(unitFlags2, fromDate: NSDate())
         components.day = (components.day - (components.weekday - 1))
         var thisWeek: NSDate = cal.dateFromComponents(components)!
         components.day = (components.day - 7)
@@ -86,6 +87,7 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
         var lastMonth: NSDate = cal.dateFromComponents(components)!
         components.month = (components.month - 1)
         var twoMonthsAgo: NSDate = cal.dateFromComponents(components)!
+        
         var TodayArray: [AnyObject] = NSMutableArray() as [AnyObject]
         var YesterdayArray: [AnyObject] = NSMutableArray() as [AnyObject]
         var ThisWeekArray: [AnyObject] = NSMutableArray() as [AnyObject]
@@ -96,80 +98,80 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
         var TwoMonthsAgoArray: [AnyObject] = NSMutableArray() as [AnyObject]
         var LongAgoArray: [AnyObject] = NSMutableArray() as [AnyObject]
         var AllTimeArray: [AnyObject] = NSMutableArray() as [AnyObject]
-        for var i = 0; i < items!.count; i += 1 {
+        
+        for i in 0 ..< items!.count {
             var item: ChecklistItem = items![i] as! ChecklistItem
             var addingDate: NSDate = item.dueDate
-            var count: Int = tableDataSectionsDict!.count
+            var count = UInt(tableDataSectionsDict!.count)
             if NotesViewController.date(addingDate, isBetweenDate: today, andDate: now) {
                 TodayArray.append(item)
-                if !tableDataSectionsDict!.allKeys.containsObject("Today") {
-                    //                [tableDataSectionsDict setObject:TodayArray forKey:@"Today"];
+                if !tableDataSectionsDict!.allKeys.contains("Today") {
                     tableDataSectionsDict!.insertObject(TodayArray, forKey: "Today", atIndex: count)
                 }
             }
             else if NotesViewController.date(addingDate, isBetweenDate: yesterday, andDate: today) {
                 YesterdayArray.append(item)
-                if !tableDataSectionsDict!.allKeys.containsObject("Yesterday") {
-                    //                [tableDataSectionsDict setObject:YesterdayArray forKey:@"Yesterday"];
+                if !tableDataSectionsDict!.allKeys.contains("Yesterday") {
                     tableDataSectionsDict!.insertObject(YesterdayArray, forKey: "Yesterday", atIndex: count)
                 }
             }
             else if NotesViewController.date(addingDate, isBetweenDate: thisWeek, andDate: yesterday) {
                 ThisWeekArray.append(item)
-                if !tableDataSectionsDict.allKeys().containsObject("This Week") {
+                if !tableDataSectionsDict!.allKeys.contains("This Week") {
                     //                [tableDataSectionsDict setObject:ThisWeekArray forKey:@"This Week"];
-                    tableDataSectionsDict.insertObject(ThisWeekArray, forKey: "This Week", atIndex: count)
+                    tableDataSectionsDict!.insertObject(ThisWeekArray, forKey: "This Week", atIndex: count)
                 }
             }
             else if NotesViewController.date(addingDate, isBetweenDate: lastWeek, andDate: thisWeek) {
                 LastWeekArray.append(item)
-                if !tableDataSectionsDict.allKeys().containsObject("Last Week") {
+                if !tableDataSectionsDict!.allKeys.contains("Last Week") {
                     //                [tableDataSectionsDict setObject:LastWeekArray forKey:@"Last Week"];
-                    tableDataSectionsDict.insertObject(LastWeekArray, forKey: "Last Week", atIndex: count)
+                    tableDataSectionsDict!.insertObject(LastWeekArray, forKey: "Last Week", atIndex: count)
                 }
             }
             else if NotesViewController.date(addingDate, isBetweenDate: twoWeeksAgo, andDate: lastWeek) {
                 TwoWeeksAgoArray.append(item)
-                if !tableDataSectionsDict.allKeys().containsObject("Two Weeks Ago") {
+                if !tableDataSectionsDict!.allKeys.contains("Two Weeks Ago") {
                     //                [tableDataSectionsDict setObject:TwoWeeksAgoArray forKey:@"Two Weeks Ago"];
-                    tableDataSectionsDict.insertObject(TwoWeeksAgoArray, forKey: "Two Weeks Ago", atIndex: count)
+                    tableDataSectionsDict!.insertObject(TwoWeeksAgoArray, forKey: "Two Weeks Ago", atIndex: count)
                 }
             }
             else if NotesViewController.date(addingDate, isBetweenDate: thisMonth, andDate: twoWeeksAgo) {
                 ThisMonthArray.append(item)
-                if !tableDataSectionsDict.allKeys().containsObject("This Month") {
+                if !tableDataSectionsDict!.allKeys.contains("This Month") {
                     //                [tableDataSectionsDict setObject:ThisMonthArray forKey:@"This Month"];
                     tableDataSectionsDict.insertObject(ThisMonthArray, forKey: "This Month", atIndex: count)
                 }
             }
             else if NotesViewController.date(addingDate, isBetweenDate: lastMonth, andDate: thisMonth) {
                 LastMonthArray.append(item)
-                if !tableDataSectionsDict.allKeys().containsObject("Last Month") {
+                if !tableDataSectionsDict!.allKeys.contains("Last Month") {
                     //                [tableDataSectionsDict setObject:LastMonthArray forKey:@"Last Month"];
                     tableDataSectionsDict.insertObject(LastMonthArray, forKey: "Last Month", atIndex: count)
                 }
             }
             else if NotesViewController.date(addingDate, isBetweenDate: twoMonthsAgo, andDate: lastMonth) {
                 TwoMonthsAgoArray.append(item)
-                if !tableDataSectionsDict.allKeys().containsObject("Two Months Ago") {
+                if !tableDataSectionsDict!.allKeys.contains("Two Months Ago") {
                     //                [tableDataSectionsDict setObject:TwoMonthsAgoArray forKey:@"Two Months Ago"];
-                    tableDataSectionsDict.insertObject(TwoMonthsAgoArray, forKey: "Two Months Ago", atIndex: count)
+                    tableDataSectionsDict!.insertObject(TwoMonthsAgoArray, forKey: "Two Months Ago", atIndex: count)
                 }
             }
             else {
                 LongAgoArray.append(item)
-                if !tableDataSectionsDict.allKeys().containsObject("Long Ago") {
+                if !tableDataSectionsDict!.allKeys.contains("Long Ago") {
                     //                [tableDataSectionsDict setObject:LongAgoArray forKey:@"Long Ago"];
-                    tableDataSectionsDict.insertObject(LongAgoArray, forKey: "Long Ago", atIndex: count)
+                    tableDataSectionsDict!.insertObject(LongAgoArray, forKey: "Long Ago", atIndex: count)
                 }
             }
         }
+        
         NSLog("tableDataSectionsDict: %@", tableDataSectionsDict)
     }
 
     
     func getIndexOf(c: String, Into string: String) -> Int {
-        for var i = 0; i < string.length; i++ {
+        for var i = 0; i < string.length; i += 1 {
             if c.characterAtIndex(0) == string.characterAtIndex(i) {
                 return i
             }
@@ -215,39 +217,39 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
     
     func refresh() {
         self.performSegueWithIdentifier("AddItem", sender: self)
-        self.refreshControl.endRefreshing()
+        self.refreshControl!.endRefreshing()
     }
 
     
     override func customizeAppearance() {
         ///table view background with our own custom image
         //    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blue-background.png"]];
-        self.navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: TableSectionHeaderTextColorYellow]
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: TableSectionHeaderTextColorYellow]
         ///initialize pull to refresh control
-        self.refreshControl.addTarget(self, action: "refresh", forControlEvents: .ValueChanged)
+        self.refreshControl!.addTarget(self, action: #selector(NotesViewController.refresh), forControlEvents: .ValueChanged)
         /// configure left navigation bar button item as edit button. This edit button has a mechanism of changing its title to "Done" when it pressed
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
         self.tableView.reloadData()
-        self.navigationController.navigationBar.barTintColor = NavBarBackgroundColor
-        self.navigationController.navigationBar.translucent = false
+        self.navigationController!.navigationBar.barTintColor = NavBarBackgroundColor
+        self.navigationController!.navigationBar.translucent = false
         self.tableView.separatorColor = UIColor.clearColor()
         UITableViewHeaderFooterView.appearance().tintColor = NavBarBackgroundColor
             // Create the colors
-        var lightOp: UIColor = backgroundColorGradientTop
-        var darkOp: UIColor = backgroundColorGradientBottom
+        let lightOp: UIColor = backgroundColorGradientTop
+        let darkOp: UIColor = backgroundColorGradientBottom
             // Create the gradient
-        var gradient: CAGradientLayer = CAGradientLayer.layer()
+        let gradient: CAGradientLayer = CAGradientLayer.layer()
         // Set colors
         gradient.colors = [(lightOp.CGColor as AnyObject), (darkOp.CGColor as AnyObject)]
         // Set bounds
         gradient.frame = self.view.bounds
-        var gradientImage: UIImage = self.imageFromLayer(gradient)
-        var worldBGImage: UIImage = UIImage(named: "blue-background.png")
-        var size: CGSize = CGSizeMake(gradientImage.size.width, gradientImage.size.height)
+        let gradientImage: UIImage = self.imageFromLayer(gradient)
+        let worldBGImage: UIImage = UIImage(named: "blue-background.png")!
+        let size: CGSize = CGSizeMake(gradientImage.size.width, gradientImage.size.height)
         worldBGImage.drawInRect(CGRectMake(0, 0, size.width, size.height))
         gradientImage.drawInRect(CGRectMake(0, 0, size.width, size.height))
             //    [worldBGImage drawInRect:CGRectMake(0,0,size.width, size.height)];
-        var finalImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let finalImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         self.tableView.backgroundView = UIImageView(image: finalImage)
     }
@@ -267,7 +269,7 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     
     func imageFromLayer(layer: CALayer) -> UIImage {
-        layer.renderInContext(UIGraphicsGetCurrentContext())
+        layer.renderInContext(UIGraphicsGetCurrentContext()!)
         let outputImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return outputImage
@@ -286,46 +288,46 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return tableDataSectionsDict.count
+        return tableDataSectionsDict!.count
     }
 
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var keys: [AnyObject] = tableDataSectionsDict.allKeys()
-        var aKey: String = keys[section] as! String
-        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict[aKey] as! [AnyObject])
+        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        let aKey: String = keys[section] as! String
+        let eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey] as! [AnyObject])
         return eventsOnThisDay.count
     }
 
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String {
-        var keys: [AnyObject] = tableDataSectionsDict.allKeys()
-        var aKey: String = keys[section] as! String
+        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        let aKey: String = keys[section] as! String
         return aKey
     }
     
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("ChecklistItem")
+        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("ChecklistItem")!
             //    ChecklistItem *item = [items objectAtIndex:indexPath.row];
             //    [self configureTextForCell:cell withChecklistItem:item];
-        var keys: [AnyObject] = tableDataSectionsDict.allKeys()
-        var aKey: String = keys[indexPath.section] as! String
+        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        let aKey: String = keys[indexPath.section] as! String
             //    NSDate *dateRepresentingThisDay = [items objectAtIndex:indexPath.section];
-        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict[aKey] as! [AnyObject])
-        var item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
+        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey] as! [AnyObject])
+        let item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
         self.configureTextForCell(cell, withChecklistItem: item)
         return cell
     }
     
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        var keys: [AnyObject] = tableDataSectionsDict.allKeys()
+        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
         var aKey: String = keys[indexPath.section] as! String
-        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict[aKey] as! [AnyObject])
+        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey] as! [AnyObject])
         var item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
-        for var i = 0; i < items.count; i++ {
-            var itemToDelete: ChecklistItem = items[i] as! ChecklistItem
+        for i in 0 ..< items!.count {
+            var itemToDelete: ChecklistItem = items![i] as! ChecklistItem
             if item.dueDate.isEqualToDate(itemToDelete.dueDate) {
 
                 items.removeAtIndex(i)
@@ -344,24 +346,24 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-        var objectToMove: AnyObject = items[fromIndexPath.row]
+        var objectToMove: AnyObject = items![fromIndexPath.row]
         items.removeAtIndex(fromIndexPath.row)
-        items.insertObject(objectToMove, atIndex: toIndexPath.row)
+        items!.insertObject(objectToMove, atIndex: toIndexPath.row)
         tableView.reloadData()
         self.saveChecklistItems()
     }
     
 
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView {
-        var tempView: UIView = UIView(frame: CGRectMake(0, 200, 300, 244))
+        let tempView: UIView = UIView(frame: CGRectMake(0, 200, 300, 244))
         tempView.backgroundColor = NavBarBackgroundColor
-        var tempLabel: UILabel = UILabel(frame: CGRectMake(15, 0, 300, 20))
+        let tempLabel: UILabel = UILabel(frame: CGRectMake(15, 0, 300, 20))
         tempLabel.backgroundColor = UIColor.clearColor()
         //    tempLabel.shadowColor = [UIColor blackColor];
         //    tempLabel.shadowOffset = CGSizeMake(0,2);
         tempLabel.textColor = TableSectionHeaderTextColorYellow
-        var keys: [AnyObject] = tableDataSectionsDict.allKeys()
-        var aKey: String = keys[section] as! String
+        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        let aKey: String = keys[section] as! String
         tempLabel.text = aKey
         // probably from array
         tempView.addSubview(tempLabel)
@@ -381,19 +383,20 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var keys: [AnyObject] = tableDataSectionsDict.allKeys()
-        var aKey: String = keys[indexPath.section] as! String
-        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict[aKey] as! [AnyObject])
-        var item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
+        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        let aKey: String = keys[indexPath.section] as! String
+        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey] as! [AnyObject])
+        let item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
         self.performSegueWithIdentifier("EditItem", sender: item)
     }
 
+    
 
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        var keys: [AnyObject] = tableDataSectionsDict.allKeys()
-        var aKey: String = keys[indexPath.section] as! String
-        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict[aKey] as! [AnyObject])
-        var item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
+        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        let aKey: String = keys[indexPath.section] as! String
+        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey] as! [AnyObject])
+        let item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
         self.performSegueWithIdentifier("EditItem", sender: item)
     }
 
@@ -404,7 +407,7 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     
     func addItemViewController(controller: AddNoteViewController, didFinishAddingItem item: ChecklistItem) {
-        let newRowIndex: Int = items.count
+        let newRowIndex: Int = items!.count
         items.append(item)
         self.saveChecklistItems()
         self.loadChecklistItems()
@@ -416,9 +419,9 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     
     func addItemViewController(controller: AddNoteViewController, didFinishEditingItem item: ChecklistItem) {
-        var index: Int = items.indexOfObject(item)
-        var indexPath: NSIndexPath = NSIndexPath(forRow: index, inSection: 0)
-        var cell: UITableViewCell = self.tableView.cellForRowAtIndexPath(indexPath)
+        let index: Int = items!.indexOfObject(item)
+        let indexPath: NSIndexPath = NSIndexPath(forRow: index, inSection: 0)
+        let cell: UITableViewCell = self.tableView.cellForRowAtIndexPath(indexPath)!
         self.configureTextForCell(cell, withChecklistItem: item)
         self.saveChecklistItems()
         self.loadChecklistItems()
