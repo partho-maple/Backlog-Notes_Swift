@@ -57,36 +57,36 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
     func sortTableDateToIndecesByDateWith(listItems: NSMutableArray) {
         tableDataSectionsDict = CHOrderedDictionary()
         tableDataSectionsDictKeyOrder = NSMutableOrderedSet()
-        var cal: NSCalendar = NSCalendar.currentCalendar()
+        let cal: NSCalendar = NSCalendar.currentCalendar()
         let unitFlags: NSCalendarUnit = [.Hour, .Minute, .Second]
         var components: NSDateComponents = cal.components(unitFlags, fromDate: NSDate())
         components.timeZone = NSTimeZone.defaultTimeZone()
-        var df: NSDateFormatter = NSDateFormatter()
+        let df: NSDateFormatter = NSDateFormatter()
         df.dateFormat = "dd/MM/yyyy"
-        var now: NSDate = NSDate()
+        let now: NSDate = NSDate()
         components.hour = -components.hour
         components.minute = -components.minute
         components.second = -components.second
-        var today: NSDate = cal.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(rawValue: 0))!
+        let today: NSDate = cal.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(rawValue: 0))!
         //    This variable should now be pointing at a date object that is the start of today (midnight);
         components.hour = -24
         components.minute = 0
         components.second = 0
         let unitFlags2: NSCalendarUnit = [.Year, .Month, .Weekday, .Day]
-        var yesterday: NSDate = cal.dateByAddingComponents(components, toDate: today, options: NSCalendarOptions(rawValue: 0))!
+        let yesterday: NSDate = cal.dateByAddingComponents(components, toDate: today, options: NSCalendarOptions(rawValue: 0))!
         components = cal.components(unitFlags2, fromDate: NSDate())
         components.day = (components.day - (components.weekday - 1))
-        var thisWeek: NSDate = cal.dateFromComponents(components)!
+        let thisWeek: NSDate = cal.dateFromComponents(components)!
         components.day = (components.day - 7)
-        var lastWeek: NSDate = cal.dateFromComponents(components)!
+        let lastWeek: NSDate = cal.dateFromComponents(components)!
         components.day = (components.day - 7)
-        var twoWeeksAgo: NSDate = cal.dateFromComponents(components)!
+        let twoWeeksAgo: NSDate = cal.dateFromComponents(components)!
         components.day = (components.day - (components.day - 1))
-        var thisMonth: NSDate = cal.dateFromComponents(components)!
+        let thisMonth: NSDate = cal.dateFromComponents(components)!
         components.month = (components.month - 1)
-        var lastMonth: NSDate = cal.dateFromComponents(components)!
+        let lastMonth: NSDate = cal.dateFromComponents(components)!
         components.month = (components.month - 1)
-        var twoMonthsAgo: NSDate = cal.dateFromComponents(components)!
+        let twoMonthsAgo: NSDate = cal.dateFromComponents(components)!
         
         var TodayArray: [AnyObject] = NSMutableArray() as [AnyObject]
         var YesterdayArray: [AnyObject] = NSMutableArray() as [AnyObject]
@@ -105,68 +105,87 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
             var count = UInt(tableDataSectionsDict!.count)
             if NotesViewController.date(addingDate, isBetweenDate: today, andDate: now) {
                 TodayArray.append(item)
-                if !tableDataSectionsDict!.allKeys.contains("Today") {
+                
+                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Today" }
+                if !containsKey {
                     tableDataSectionsDict!.insertObject(TodayArray, forKey: "Today", atIndex: count)
                 }
+                
             }
             else if NotesViewController.date(addingDate, isBetweenDate: yesterday, andDate: today) {
                 YesterdayArray.append(item)
-                if !tableDataSectionsDict!.allKeys.contains("Yesterday") {
+                
+                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Yesterday" }
+                if !containsKey {
                     tableDataSectionsDict!.insertObject(YesterdayArray, forKey: "Yesterday", atIndex: count)
                 }
+                
             }
             else if NotesViewController.date(addingDate, isBetweenDate: thisWeek, andDate: yesterday) {
                 ThisWeekArray.append(item)
-                if !tableDataSectionsDict!.allKeys.contains("This Week") {
-                    //                [tableDataSectionsDict setObject:ThisWeekArray forKey:@"This Week"];
+                
+                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "This Week" }
+                if !containsKey {
                     tableDataSectionsDict!.insertObject(ThisWeekArray, forKey: "This Week", atIndex: count)
                 }
+                
             }
             else if NotesViewController.date(addingDate, isBetweenDate: lastWeek, andDate: thisWeek) {
                 LastWeekArray.append(item)
-                if !tableDataSectionsDict!.allKeys.contains("Last Week") {
-                    //                [tableDataSectionsDict setObject:LastWeekArray forKey:@"Last Week"];
+                
+                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Last Week" }
+                if !containsKey {
                     tableDataSectionsDict!.insertObject(LastWeekArray, forKey: "Last Week", atIndex: count)
                 }
+ 
             }
             else if NotesViewController.date(addingDate, isBetweenDate: twoWeeksAgo, andDate: lastWeek) {
                 TwoWeeksAgoArray.append(item)
-                if !tableDataSectionsDict!.allKeys.contains("Two Weeks Ago") {
-                    //                [tableDataSectionsDict setObject:TwoWeeksAgoArray forKey:@"Two Weeks Ago"];
+                
+                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Two Weeks Ago" }
+                if !containsKey {
                     tableDataSectionsDict!.insertObject(TwoWeeksAgoArray, forKey: "Two Weeks Ago", atIndex: count)
                 }
+
             }
             else if NotesViewController.date(addingDate, isBetweenDate: thisMonth, andDate: twoWeeksAgo) {
                 ThisMonthArray.append(item)
-                if !tableDataSectionsDict!.allKeys.contains("This Month") {
-                    //                [tableDataSectionsDict setObject:ThisMonthArray forKey:@"This Month"];
-                    tableDataSectionsDict.insertObject(ThisMonthArray, forKey: "This Month", atIndex: count)
+                
+                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "This Month" }
+                if !containsKey {
+                    tableDataSectionsDict!.insertObject(ThisMonthArray, forKey: "This Month", atIndex: count)
                 }
+
             }
             else if NotesViewController.date(addingDate, isBetweenDate: lastMonth, andDate: thisMonth) {
                 LastMonthArray.append(item)
-                if !tableDataSectionsDict!.allKeys.contains("Last Month") {
-                    //                [tableDataSectionsDict setObject:LastMonthArray forKey:@"Last Month"];
-                    tableDataSectionsDict.insertObject(LastMonthArray, forKey: "Last Month", atIndex: count)
+                
+                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Last Month" }
+                if !containsKey {
+                    tableDataSectionsDict!.insertObject(LastMonthArray, forKey: "Last Month", atIndex: count)
                 }
+
             }
             else if NotesViewController.date(addingDate, isBetweenDate: twoMonthsAgo, andDate: lastMonth) {
                 TwoMonthsAgoArray.append(item)
-                if !tableDataSectionsDict!.allKeys.contains("Two Months Ago") {
-                    //                [tableDataSectionsDict setObject:TwoMonthsAgoArray forKey:@"Two Months Ago"];
+                
+                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Two Months Ago" }
+                if !containsKey {
                     tableDataSectionsDict!.insertObject(TwoMonthsAgoArray, forKey: "Two Months Ago", atIndex: count)
                 }
+
             }
             else {
                 LongAgoArray.append(item)
-                if !tableDataSectionsDict!.allKeys.contains("Long Ago") {
-                    //                [tableDataSectionsDict setObject:LongAgoArray forKey:@"Long Ago"];
+                
+                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Long Ago" }
+                if !containsKey {
                     tableDataSectionsDict!.insertObject(LongAgoArray, forKey: "Long Ago", atIndex: count)
                 }
+
             }
         }
         
-        NSLog("tableDataSectionsDict: %@", tableDataSectionsDict)
     }
 
     
@@ -408,7 +427,7 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
     
     func addItemViewController(controller: AddNoteViewController, didFinishAddingItem item: ChecklistItem) {
         let newRowIndex: Int = items!.count
-        items.append(item)
+        self.items.append(item)
         self.saveChecklistItems()
         self.loadChecklistItems()
         let indexPath: NSIndexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)

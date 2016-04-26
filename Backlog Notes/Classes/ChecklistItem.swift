@@ -4,12 +4,11 @@ import Swift
 
 
 class ChecklistItem: NSObject, NSCoding {
-    ///declare propertis of the items we want to store
+
     var notes: String = ""
     var dueDate: NSDate
     var shouldRemind: Bool
     var itemId: Int = 0
-    ///declare method to schedule local notification
     
     required init?(coder aDecoder: NSCoder) {
         
@@ -44,26 +43,18 @@ class ChecklistItem: NSObject, NSCoding {
         }
     }
 
-    ///synthesize the declared properties
-    ///method to decode
-
-    
-    ///method to encode
-
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(self.notes, forKey: "Notes")
         aCoder.encodeObject(self.dueDate, forKey: "DueDate")
         aCoder.encodeBool(self.shouldRemind, forKey: "ShouldRemind")
         aCoder.encodeInt(self.itemId, forKey: "ItemID")
     }
-    ///We need to assign an id for each item.
 
     convenience override init() {
         if self.dynamicType.init() {
             self.itemId = DataModel.nextChecklistItemId()
         }
     }
-    ///We need to assign an id for each item so that we can easily identify.
 
     func notificationForThisItem() -> UILocalNotification {
         var allNotifications: [AnyObject] = UIApplication.sharedApplication().scheduledLocalNotifications!()
@@ -75,13 +66,16 @@ class ChecklistItem: NSObject, NSCoding {
         }
         return nil
     }
-    ///We schedule notification here for the selected item. If there is any existing notification for this item, we remove them so that only latest alarm time will be fired.
 
     func dealloc() {
         var existingNotification: UILocalNotification = self.notificationForThisItem()
         if existingNotification != nil {
-            //   NSLog(@"Removing existing notification %@", existingNotification);
             UIApplication.sharedApplication().cancelLocalNotification(existingNotification)
         }
     }
 }
+
+
+
+
+
