@@ -97,7 +97,6 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
         var LastMonthArray: [AnyObject] = NSMutableArray() as [AnyObject]
         var TwoMonthsAgoArray: [AnyObject] = NSMutableArray() as [AnyObject]
         var LongAgoArray: [AnyObject] = NSMutableArray() as [AnyObject]
-        var AllTimeArray: [AnyObject] = NSMutableArray() as [AnyObject]
         
         for i in 0 ..< items!.count {
             var item: ChecklistItem = items![i] as! ChecklistItem
@@ -190,8 +189,8 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     
     func getIndexOf(c: String, Into string: String) -> Int {
-        for var i = 0; i < string.length; i += 1 {
-            if c.characterAtIndex(0) == string.characterAtIndex(i) {
+        for i in 0 ..< string.characters.count {
+            if String(c[c.startIndex.advancedBy(0)]) == String(string[string.startIndex.advancedBy(i)]) {
                 return i
             }
         }
@@ -200,10 +199,10 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     
     class func date(date: NSDate, isBetweenDate beginDate: NSDate, andDate endDate: NSDate) -> Bool {
-        if date.compare(beginDate) == NSOrderedAscending {
+        if date.compare(beginDate) == NSComparisonResult.OrderedAscending {
             return false
         }
-        if date.compare(endDate) == NSOrderedDescending {
+        if date.compare(endDate) == NSComparisonResult.OrderedDescending {
             return false
         }
         return true
@@ -211,24 +210,25 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     
     func configureTextForCell(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
-        var notesLabel: UILabel = (cell.viewWithTag(1500) as! UILabel)
-        var rangeOfString: NSRange = item.notes.rangeOfString(".")
+        let notesLabel: UILabel = (cell.viewWithTag(1500) as! UILabel)
+        let notes: NSString = NSString(string: item.notes)
+        let rangeOfString: NSRange = notes.rangeOfString(".")
         if rangeOfString.location == NSNotFound {
             // error condition — the text searchKeyword wasn't in 'string'
             notesLabel.text = item.notes
         }
         else {
-            notesLabel.text = item.notes.substringToIndex((rangeOfString.location + 1))
+            notesLabel.text = notes.substringToIndex((rangeOfString.location + 1))
         }
         if item.shouldRemind == true {
-            var dueDateLabel: UILabel = (cell.viewWithTag(1600) as! UILabel)
-            var formatter: NSDateFormatter = NSDateFormatter()
-            formatter.dateStyle = NSDateFormatterShortStyle
-            formatter.timeStyle = NSDateFormatterShortStyle
+            let dueDateLabel: UILabel = (cell.viewWithTag(1600) as! UILabel)
+            let formatter: NSDateFormatter = NSDateFormatter()
+            formatter.dateStyle = NSDateFormatterStyle.ShortStyle
+            formatter.timeStyle = NSDateFormatterStyle.ShortStyle
             dueDateLabel.text = formatter.stringFromDate(item.dueDate)
         }
         else {
-            var dueDateLabel: UILabel = (cell.viewWithTag(1600) as! UILabel)
+            let dueDateLabel: UILabel = (cell.viewWithTag(1600) as! UILabel)
             dueDateLabel.text = nil
         }
     }
@@ -240,50 +240,46 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
     }
 
     
-    override func customizeAppearance() {
-        ///table view background with our own custom image
-        //    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blue-background.png"]];
+    func customizeAppearance() {
+
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: TableSectionHeaderTextColorYellow]
-        ///initialize pull to refresh control
         self.refreshControl!.addTarget(self, action: #selector(NotesViewController.refresh), forControlEvents: .ValueChanged)
-        /// configure left navigation bar button item as edit button. This edit button has a mechanism of changing its title to "Done" when it pressed
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
         self.tableView.reloadData()
         self.navigationController!.navigationBar.barTintColor = NavBarBackgroundColor
         self.navigationController!.navigationBar.translucent = false
         self.tableView.separatorColor = UIColor.clearColor()
         UITableViewHeaderFooterView.appearance().tintColor = NavBarBackgroundColor
-            // Create the colors
         let lightOp: UIColor = backgroundColorGradientTop
         let darkOp: UIColor = backgroundColorGradientBottom
-            // Create the gradient
-        let gradient: CAGradientLayer = CAGradientLayer.layer()
-        // Set colors
+
+        let gradient: CAGradientLayer = CAGradientLayer()
         gradient.colors = [(lightOp.CGColor as AnyObject), (darkOp.CGColor as AnyObject)]
-        // Set bounds
         gradient.frame = self.view.bounds
         let gradientImage: UIImage = self.imageFromLayer(gradient)
         let worldBGImage: UIImage = UIImage(named: "blue-background.png")!
         let size: CGSize = CGSizeMake(gradientImage.size.width, gradientImage.size.height)
         worldBGImage.drawInRect(CGRectMake(0, 0, size.width, size.height))
         gradientImage.drawInRect(CGRectMake(0, 0, size.width, size.height))
-            //    [worldBGImage drawInRect:CGRectMake(0,0,size.width, size.height)];
         let finalImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         self.tableView.backgroundView = UIImageView(image: finalImage)
     }
     
 
+    /*
     convenience required init(coder aDecoder: NSCoder) {
         if (self.init(coder: aDecoder)) {
             self.loadChecklistItems()
         }
     }
+    */
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.customizeAppearance()
+        self.loadChecklistItems()
     }
 
     
@@ -294,7 +290,7 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
         return outputImage
     }
 
-    
+    /*
     @IBAction func accessoryButtonTapped(sender: AnyObject, event: AnyObject) {
         var touches: Set<AnyObject> = event.allTouches()
         var touch: UITouch = touches.first!
@@ -304,6 +300,7 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
             self.tableView(self.tableView, accessoryButtonTappedForRowWithIndexPath: indexPath)
         }
     }
+    */
 
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -349,7 +346,7 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
             var itemToDelete: ChecklistItem = items![i] as! ChecklistItem
             if item.dueDate.isEqualToDate(itemToDelete.dueDate) {
 
-                items.removeAtIndex(i)
+                items.removeAtIndex(i as Int)
             }
         }
         self.saveChecklistItems()

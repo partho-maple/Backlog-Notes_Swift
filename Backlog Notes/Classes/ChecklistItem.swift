@@ -6,13 +6,9 @@ import Swift
 class ChecklistItem: NSObject, NSCoding {
 
     var notes: String = ""
-    var dueDate: NSDate
-    var shouldRemind: Bool
+    var dueDate: NSDate = NSDate()
+    var shouldRemind: Bool = false
     var itemId: Int = 0
-    
-    required init?(coder aDecoder: NSCoder) {
-        
-    }
     
     required convenience init?(coder aDecoder: NSCoder) {
         if (self.init()) {
