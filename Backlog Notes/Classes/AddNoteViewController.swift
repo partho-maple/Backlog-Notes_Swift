@@ -1,15 +1,13 @@
-
-
 import UIKit
 import QuartzCore
 
 
-protocol AddItemViewControllerDelegate {
+let emptyNoteAlertViewsTag = 0
 
+
+protocol AddItemViewControllerDelegate {
     func addItemViewControllerDidCancel(controller: AddNoteViewController)
-    
     func addItemViewController(controller: AddNoteViewController, didFinishAddingItem item: ChecklistItem)
-    
     func addItemViewController(controller: AddNoteViewController, didFinishEditingItem item: ChecklistItem)
 }
 
@@ -21,7 +19,7 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
     var notes: String = ""
     var shouldRemind: Bool = false
     var dueDate: NSDate = NSDate()
-    var delegate: AddItemViewControllerDelegate
+    var delegate: AddItemViewControllerDelegate! // Question here
     var itemToEdit: ChecklistItem {
         get {
             return self.itemToEdit
@@ -40,8 +38,6 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
     var activityViewController: UIActivityViewController!
     
 
-    
-    
     convenience required init(coder aDecoder: NSCoder) {
         self.init(coder: aDecoder)
         notes = ""
@@ -49,17 +45,6 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
         dueDate = NSDate()
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     @IBAction func cancel() {
         self.delegate.addItemViewControllerDidCancel(self)
@@ -162,14 +147,13 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
         if indexPath.section == 0 {
             cell.backgroundColor = TableCellBackgroundColor
         }
-        else {
-
-        }
     }
 
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath {
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         if indexPath.row == 0 {
             return indexPath
+        } else {
+            return nil;
         }
     }
 
@@ -177,12 +161,6 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
         super.didReceiveMemoryWarning()
     }
 
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-//        if (segue.identifier == "Load View") {
-//            // pass data to next view
-//        }
-    }
     
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
@@ -211,10 +189,6 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
         return outputImage
     }
 }
-
-
-let emptyNoteAlertViewsTag = 0
-
 
 
 
