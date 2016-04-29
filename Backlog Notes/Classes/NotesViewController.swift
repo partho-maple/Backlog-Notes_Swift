@@ -99,9 +99,9 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
         var LongAgoArray: [AnyObject] = NSMutableArray() as [AnyObject]
         
         for i in 0 ..< items!.count {
-            var item: ChecklistItem = items![i] as! ChecklistItem
-            var addingDate: NSDate = item.dueDate
-            var count = UInt(tableDataSectionsDict!.count)
+            let item: ChecklistItem = items![i] as! ChecklistItem
+            let addingDate: NSDate = item.dueDate
+            let count = UInt(tableDataSectionsDict!.count)
             if NotesViewController.date(addingDate, isBetweenDate: today, andDate: now) {
                 TodayArray.append(item)
                 
@@ -267,19 +267,24 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
     }
     
 
-    /*
+    
+//    convenience required init(coder aDecoder: NSCoder) {
+//        if (self.init(coder: aDecoder)) {
+//            self.loadChecklistItems()
+//        }
+//    }
+    
     convenience required init(coder aDecoder: NSCoder) {
-        if (self.init(coder: aDecoder)) {
-            self.loadChecklistItems()
-        }
+        self.init(coder: aDecoder)
+        self.loadChecklistItems()
     }
-    */
+ 
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.customizeAppearance()
-        self.loadChecklistItems()
+//        self.loadChecklistItems()
     }
 
     
@@ -290,17 +295,16 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
         return outputImage
     }
 
-    /*
+    
     @IBAction func accessoryButtonTapped(sender: AnyObject, event: AnyObject) {
-        var touches: Set<AnyObject> = event.allTouches()
-        var touch: UITouch = touches.first!
-        var currentTouchPosition: CGPoint = touch.locationInView(self.tableView)
-        var indexPath: NSIndexPath = self.tableView(forRowAtPoint: currentTouchPosition)
-        if indexPath != nil {
-            self.tableView(self.tableView, accessoryButtonTappedForRowWithIndexPath: indexPath)
-        }
+        let touches: Set<UITouch> = event.allTouches()!
+        let touch: UITouch = touches.first!
+        let currentTouchPosition: CGPoint = touch.locationInView(self.tableView)
+        let indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(currentTouchPosition)!
+        
+        self.tableView(self.tableView, accessoryButtonTappedForRowWithIndexPath: indexPath)
     }
-    */
+ 
 
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -339,14 +343,15 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         var keys: [AnyObject] = tableDataSectionsDict!.allKeys
-        var aKey: String = keys[indexPath.section] as! String
+        let aKey: String = keys[indexPath.section] as! String
         var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey] as! [AnyObject])
-        var item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
+        let item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
         for i in 0 ..< items!.count {
-            var itemToDelete: ChecklistItem = items![i] as! ChecklistItem
+            let itemToDelete: ChecklistItem = items![i] as! ChecklistItem
             if item.dueDate.isEqualToDate(itemToDelete.dueDate) {
 
-                items.removeAtIndex(i as Int)
+//                items.removeAtIndex(i)
+                items?.removeObjectAtIndex(i)
             }
         }
         self.saveChecklistItems()
@@ -362,8 +367,9 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-        var objectToMove: AnyObject = items![fromIndexPath.row]
-        items.removeAtIndex(fromIndexPath.row)
+        let objectToMove: AnyObject = items![fromIndexPath.row]
+//        items.removeAtIndex(fromIndexPath.row)
+        items?.removeObjectAtIndex(fromIndexPath.row)
         items!.insertObject(objectToMove, atIndex: toIndexPath.row)
         tableView.reloadData()
         self.saveChecklistItems()
@@ -424,7 +430,8 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
     
     func addItemViewController(controller: AddNoteViewController, didFinishAddingItem item: ChecklistItem) {
         let newRowIndex: Int = items!.count
-        self.items.append(item)
+//        self.items.append(item)
+        self.items?.addObject(item)
         self.saveChecklistItems()
         self.loadChecklistItems()
         let indexPath: NSIndexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
@@ -446,6 +453,7 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
     }
 
 
+    /*
     func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject) {
         if (segue.identifier == "AddItem") {
             let navigationController: UINavigationController = segue.destinationViewController
@@ -460,4 +468,25 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
         }
 
     }
+    */
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "AddItem") {
+            let navigationController: UINavigationController = segue.destinationViewController as! UINavigationController
+            let controller: AddNoteViewController = (navigationController.topViewController as! AddNoteViewController)
+            controller.delegate = self
+        }
+        else if (segue.identifier == "EditItem") {
+            let navigationController: UINavigationController = segue.destinationViewController as! UINavigationController
+            let controller: AddNoteViewController = (navigationController.topViewController as! AddNoteViewController)
+            controller.delegate = self
+            controller.itemToEdit = sender as! ChecklistItem
+        }
+    }
 }
+
+
+
+
+

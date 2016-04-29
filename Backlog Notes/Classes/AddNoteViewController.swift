@@ -17,29 +17,48 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
 
     @IBOutlet var notesField: UITextView!
 
+    var notes: String = ""
+    var shouldRemind: Bool = false
+    var dueDate: NSDate = NSDate()
     var delegate: AddItemViewControllerDelegate
-
     var itemToEdit: ChecklistItem {
         get {
             return self.itemToEdit
         }
         set(newItem) {
             if itemToEdit != newItem {
-                itemToEdit = newItem
+                self.itemToEdit = newItem
                 notes = itemToEdit.notes
                 shouldRemind = itemToEdit.shouldRemind
                 dueDate = itemToEdit.dueDate
             }
         }
     }
-
     @IBOutlet var dueDateLabel: UILabel!
     @IBOutlet var shareButton: UIBarButtonItem!
     var activityViewController: UIActivityViewController
     
-    required init?(coder aDecoder: NSCoder) {
-        
+
+    
+    
+    convenience required init(coder aDecoder: NSCoder) {
+        self.init(coder: aDecoder)
+        notes = ""
+        shouldRemind = true
+        dueDate = NSDate()
     }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     @IBAction func cancel() {
         self.delegate.addItemViewControllerDidCancel(self)
@@ -47,13 +66,13 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
 
     @IBAction func done() {
         if (self.notesField.text! == " ") || (self.notesField.text! == "") {
-            var message: UIAlertView = UIAlertView(title: "Empty !!!", message: "Note is empty. Click OK to write again, or Cancel to dismiss.", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK")
+            let message: UIAlertView = UIAlertView(title: "Empty !!!", message: "Note is empty. Click OK to write again, or Cancel to dismiss.", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK")
             message.tag = emptyNoteAlertViewsTag
             message.show()
         }
         else {
             if self.itemToEdit == "" {
-                var item: ChecklistItem = ChecklistItem()
+                let item: ChecklistItem = ChecklistItem()
                 item.notes = self.notesField.text!
                 item.shouldRemind = true
                 item.dueDate = dueDate
@@ -81,7 +100,7 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: TableSectionHeaderTextColorYellow]
         let lightOp: UIColor = backgroundColorGradientTop
         let darkOp: UIColor = backgroundColorGradientBottom
-        let gradient: CAGradientLayer = CAGradientLayer.layer()
+        let gradient: CAGradientLayer = CAGradientLayer()
         gradient.colors = [(lightOp.CGColor as AnyObject), (darkOp.CGColor as AnyObject)]
         gradient.frame = self.view.bounds
         let gradientImage: UIImage = self.imageFromLayer(gradient)
@@ -95,35 +114,22 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
         notesField.backgroundColor = TableCellBackgroundColor
     }
     
-    var notes: String
-    var shouldRemind: Bool
-    var dueDate: NSDate
-
-
-    convenience required init(coder a
-        Decoder: NSCoder) {
-        if (self.init(coder: aDecoder)) {
-            notes = ""
-            shouldRemind = true
-            dueDate = NSDate()
-        }
-    }
 
     func updateDueDateLabel() {
-        var formatter: NSDateFormatter = NSDateFormatter()
-        formatter.dateStyle = NSDateFormatterShortStyle
-        formatter.timeStyle = NSDateFormatterShortStyle
+        let formatter: NSDateFormatter = NSDateFormatter()
+        formatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        formatter.timeStyle = NSDateFormatterStyle.ShortStyle
         self.dueDateLabel.text = formatter.stringFromDate(dueDate)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
             ///wecreate
-        var doneButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(AddNoteViewController.done))
-        var shareButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(AddNoteViewController.shareButtonClicked(_:)))
+        let doneButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(AddNoteViewController.done))
+        let shareButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(AddNoteViewController.shareButtonClicked(_:)))
         self.navigationItem.rightBarButtonItems = [doneButton, shareButton]
 
-        if self.itemToEdit != nil {
+        if self.itemToEdit.itemId != 0 {
             self.title = "Edit Note"
         }
         else {
@@ -138,7 +144,7 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if self.title != NSLocalizedString("Edit Note") {
+        if self.title != "Edit Note" {
             self.notesField.becomeFirstResponder()
             self.notesField.resignFirstResponder()
         }
@@ -164,25 +170,20 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
         if indexPath.row == 0 {
             return indexPath
         }
-        else {
-            return nil
-        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    override func viewDidUnload() {
-        self.notesField = nil
-        self.dueDateLabel = nil
-        super.viewDidUnload()
-    }
-
     
-    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+//        if (segue.identifier == "Load View") {
+//            // pass data to next view
+//        }
     }
-
+    
+    
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         if alertView.tag == emptyNoteAlertViewsTag {
             if buttonIndex == alertView.cancelButtonIndex {

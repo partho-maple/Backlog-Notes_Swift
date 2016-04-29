@@ -10,22 +10,23 @@ class ChecklistItem: NSObject, NSCoding {
     var shouldRemind: Bool = false
     var itemId: Int = 0
     
-    required convenience init?(coder aDecoder: NSCoder) {
-        if (self.init()) {
-            self.notes = aDecoder.decodeObjectForKey("Notes")
-            self.dueDate = aDecoder.decodeObjectForKey("DueDate")
-            self.shouldRemind = aDecoder.decodeBoolForKey("ShouldRemind")
-            self.itemId = aDecoder.decodeIntForKey("ItemID")
-        }
+    
+    convenience required init(coder aDecoder: NSCoder) {
+        self.init(coder: aDecoder)
+        
+        self.notes = aDecoder.decodeObjectForKey("Notes") as! String
+        self.dueDate = aDecoder.decodeObjectForKey("DueDate") as! NSDate
+        self.shouldRemind = aDecoder.decodeBoolForKey("ShouldRemind")
+        self.itemId = Int(aDecoder.decodeIntForKey("ItemID"))
     }
+
 
     func scheduleNotification() {
         var existingNotification: UILocalNotification = self.notificationForThisItem()
-        if existingNotification != nil {
-            UIApplication.sharedApplication().cancelLocalNotification(self.notificationForThisItem())
-        }
-        if self.shouldRemind && self.dueDate.compare(NSDate()) != NSOrderedAscending {
-            var localNotification: UILocalNotification = UILocalNotification()
+        UIApplication.sharedApplication().cancelLocalNotification(self.notificationForThisItem())
+        
+        if self.shouldRemind && self.dueDate.compare(NSDate()) != NSComparisonResult.OrderedAscending {
+            let localNotification: UILocalNotification = UILocalNotification()
             localNotification.fireDate = self.dueDate
             localNotification.timeZone = NSTimeZone.defaultTimeZone()
             localNotification.alertBody = self.notes
@@ -46,28 +47,24 @@ class ChecklistItem: NSObject, NSCoding {
         aCoder.encodeInt(self.itemId, forKey: "ItemID")
     }
 
-    convenience override init() {
-        if self.dynamicType.init() {
-            self.itemId = DataModel.nextChecklistItemId()
-        }
+    override init() {
+        self.itemId = DataModel.nextChecklistItemId()
     }
 
     func notificationForThisItem() -> UILocalNotification {
-        var allNotifications: [AnyObject] = UIApplication.sharedApplication().scheduledLocalNotifications!()
+        var allNotifications: [UILocalNotification] = UIApplication.sharedApplication().scheduledLocalNotifications!
         for notification: UILocalNotification in allNotifications {
             var number: Int = (notification.userInfo!["ItemID"] as! Int)
-            if number != nil && CInt(number)! == self.itemId {
+            if number == self.itemId {
                 return notification
             }
         }
         return nil
     }
 
-    func dealloc() {
-        var existingNotification: UILocalNotification = self.notificationForThisItem()
-        if existingNotification != nil {
-            UIApplication.sharedApplication().cancelLocalNotification(existingNotification)
-        }
+    deinit {
+        let existingNotification: UILocalNotification = self.notificationForThisItem()
+        UIApplication.sharedApplication().cancelLocalNotification(existingNotification)
     }
 }
 
