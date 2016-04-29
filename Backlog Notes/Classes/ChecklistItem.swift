@@ -22,8 +22,8 @@ class ChecklistItem: NSObject, NSCoding {
 
 
     func scheduleNotification() {
-        var existingNotification: UILocalNotification = self.notificationForThisItem()
-        UIApplication.sharedApplication().cancelLocalNotification(self.notificationForThisItem())
+        var existingNotification: UILocalNotification = self.notificationForThisItem()!
+        UIApplication.sharedApplication().cancelLocalNotification(self.notificationForThisItem()!)
         
         if self.shouldRemind && self.dueDate.compare(NSDate()) != NSComparisonResult.OrderedAscending {
             let localNotification: UILocalNotification = UILocalNotification()
@@ -44,17 +44,17 @@ class ChecklistItem: NSObject, NSCoding {
         aCoder.encodeObject(self.notes, forKey: "Notes")
         aCoder.encodeObject(self.dueDate, forKey: "DueDate")
         aCoder.encodeBool(self.shouldRemind, forKey: "ShouldRemind")
-        aCoder.encodeInt(self.itemId, forKey: "ItemID")
+        aCoder.encodeInt(Int32(self.itemId), forKey: "ItemID")
     }
 
     override init() {
         self.itemId = DataModel.nextChecklistItemId()
     }
 
-    func notificationForThisItem() -> UILocalNotification {
-        var allNotifications: [UILocalNotification] = UIApplication.sharedApplication().scheduledLocalNotifications!
+    func notificationForThisItem() -> UILocalNotification? {
+        let allNotifications: [UILocalNotification] = UIApplication.sharedApplication().scheduledLocalNotifications!
         for notification: UILocalNotification in allNotifications {
-            var number: Int = (notification.userInfo!["ItemID"] as! Int)
+            let number: Int = (notification.userInfo!["ItemID"] as! Int)
             if number == self.itemId {
                 return notification
             }
@@ -63,7 +63,7 @@ class ChecklistItem: NSObject, NSCoding {
     }
 
     deinit {
-        let existingNotification: UILocalNotification = self.notificationForThisItem()
+        let existingNotification: UILocalNotification = self.notificationForThisItem()!
         UIApplication.sharedApplication().cancelLocalNotification(existingNotification)
     }
 }

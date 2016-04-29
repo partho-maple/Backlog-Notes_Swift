@@ -14,7 +14,7 @@ class DataModel: NSObject {
 
 
     func registerDefaults() {
-        let dictionary: [NSObject : AnyObject] = [
+        let dictionary: [String : AnyObject] = [
                 "FirstTime" : Int(true),
                 "ChecklistItemId" : Int(0)
             ]
@@ -31,11 +31,10 @@ class DataModel: NSObject {
     }
 
     
-    convenience override init() {
-        if (self.init()) {
-            self.registerDefaults()
-            self.handleFirstTime()
-        }
+    override init() {
+        super.init()
+        self.registerDefaults()
+        self.handleFirstTime()
     }
 
 }

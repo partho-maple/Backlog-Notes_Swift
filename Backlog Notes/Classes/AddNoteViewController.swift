@@ -13,6 +13,7 @@ protocol AddItemViewControllerDelegate {
     func addItemViewController(controller: AddNoteViewController, didFinishEditingItem item: ChecklistItem)
 }
 
+
 class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextViewDelegate, UIAlertViewDelegate {
 
     @IBOutlet var notesField: UITextView!
@@ -36,7 +37,7 @@ class AddNoteViewController: UITableViewController, UITextFieldDelegate, UITextV
     }
     @IBOutlet var dueDateLabel: UILabel!
     @IBOutlet var shareButton: UIBarButtonItem!
-    var activityViewController: UIActivityViewController
+    var activityViewController: UIActivityViewController!
     
 
     
