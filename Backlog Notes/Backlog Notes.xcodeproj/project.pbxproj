@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		77221A971CCFD9DA0054D349 /* libCHDataStructures.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77221A931CCFD9DA0054D349 /* libCHDataStructures.a */; };
+		7707677C1CE62C5200E28C4B /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7707677B1CE62C5200E28C4B /* OrderedDictionary.swift */; };
 		77221A981CCFD9DA0054D349 /* DALinedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77221A961CCFD9DA0054D349 /* DALinedTextView.m */; };
 		A66B8C3717A3BD1100E95A07 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A66B8C3617A3BD1100E95A07 /* UIKit.framework */; };
 		A66B8C3917A3BD1100E95A07 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A66B8C3817A3BD1100E95A07 /* Foundation.framework */; };
@@ -44,43 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		77221A6F1CCFD9DA0054D349 /* CHAbstractBinarySearchTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAbstractBinarySearchTree.h; sourceTree = "<group>"; };
-		77221A701CCFD9DA0054D349 /* CHAbstractBinarySearchTree_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAbstractBinarySearchTree_Internal.h; sourceTree = "<group>"; };
-		77221A711CCFD9DA0054D349 /* CHAbstractListCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAbstractListCollection.h; sourceTree = "<group>"; };
-		77221A721CCFD9DA0054D349 /* CHAnderssonTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAnderssonTree.h; sourceTree = "<group>"; };
-		77221A731CCFD9DA0054D349 /* CHAVLTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAVLTree.h; sourceTree = "<group>"; };
-		77221A741CCFD9DA0054D349 /* CHBidirectionalDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHBidirectionalDictionary.h; sourceTree = "<group>"; };
-		77221A751CCFD9DA0054D349 /* CHBinaryHeap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHBinaryHeap.h; sourceTree = "<group>"; };
-		77221A761CCFD9DA0054D349 /* CHCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircularBuffer.h; sourceTree = "<group>"; };
-		77221A771CCFD9DA0054D349 /* CHCircularBufferDeque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircularBufferDeque.h; sourceTree = "<group>"; };
-		77221A781CCFD9DA0054D349 /* CHCircularBufferQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircularBufferQueue.h; sourceTree = "<group>"; };
-		77221A791CCFD9DA0054D349 /* CHCircularBufferStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircularBufferStack.h; sourceTree = "<group>"; };
-		77221A7A1CCFD9DA0054D349 /* CHDataStructures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHDataStructures.h; sourceTree = "<group>"; };
-		77221A7B1CCFD9DA0054D349 /* CHDataStructures_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHDataStructures_Prefix.pch; sourceTree = "<group>"; };
-		77221A7C1CCFD9DA0054D349 /* CHDeque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHDeque.h; sourceTree = "<group>"; };
-		77221A7D1CCFD9DA0054D349 /* CHDoublyLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHDoublyLinkedList.h; sourceTree = "<group>"; };
-		77221A7E1CCFD9DA0054D349 /* CHHeap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHHeap.h; sourceTree = "<group>"; };
-		77221A7F1CCFD9DA0054D349 /* CHLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHLinkedList.h; sourceTree = "<group>"; };
-		77221A801CCFD9DA0054D349 /* CHListDeque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHListDeque.h; sourceTree = "<group>"; };
-		77221A811CCFD9DA0054D349 /* CHListQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHListQueue.h; sourceTree = "<group>"; };
-		77221A821CCFD9DA0054D349 /* CHListStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHListStack.h; sourceTree = "<group>"; };
-		77221A831CCFD9DA0054D349 /* CHMultiDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMultiDictionary.h; sourceTree = "<group>"; };
-		77221A841CCFD9DA0054D349 /* CHMutableArrayHeap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMutableArrayHeap.h; sourceTree = "<group>"; };
-		77221A851CCFD9DA0054D349 /* CHMutableDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMutableDictionary.h; sourceTree = "<group>"; };
-		77221A861CCFD9DA0054D349 /* CHMutableSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMutableSet.h; sourceTree = "<group>"; };
-		77221A871CCFD9DA0054D349 /* CHOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHOrderedDictionary.h; sourceTree = "<group>"; };
-		77221A881CCFD9DA0054D349 /* CHOrderedSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHOrderedSet.h; sourceTree = "<group>"; };
-		77221A891CCFD9DA0054D349 /* CHQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHQueue.h; sourceTree = "<group>"; };
-		77221A8A1CCFD9DA0054D349 /* CHRedBlackTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRedBlackTree.h; sourceTree = "<group>"; };
-		77221A8B1CCFD9DA0054D349 /* CHSearchTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHSearchTree.h; sourceTree = "<group>"; };
-		77221A8C1CCFD9DA0054D349 /* CHSinglyLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHSinglyLinkedList.h; sourceTree = "<group>"; };
-		77221A8D1CCFD9DA0054D349 /* CHSortedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHSortedDictionary.h; sourceTree = "<group>"; };
-		77221A8E1CCFD9DA0054D349 /* CHSortedSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHSortedSet.h; sourceTree = "<group>"; };
-		77221A8F1CCFD9DA0054D349 /* CHStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHStack.h; sourceTree = "<group>"; };
-		77221A901CCFD9DA0054D349 /* CHTreap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTreap.h; sourceTree = "<group>"; };
-		77221A911CCFD9DA0054D349 /* CHUnbalancedTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHUnbalancedTree.h; sourceTree = "<group>"; };
-		77221A921CCFD9DA0054D349 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
-		77221A931CCFD9DA0054D349 /* libCHDataStructures.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCHDataStructures.a; sourceTree = "<group>"; };
+		7707677B1CE62C5200E28C4B /* OrderedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
 		77221A951CCFD9DA0054D349 /* DALinedTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALinedTextView.h; sourceTree = "<group>"; };
 		77221A961CCFD9DA0054D349 /* DALinedTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALinedTextView.m; sourceTree = "<group>"; };
 		772B14F01CCBC89200F30DDF /* BacklogNotes_BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BacklogNotes_BridgingHeader.h; sourceTree = "<group>"; };
@@ -130,7 +94,6 @@
 				AE12584018C8E6A1008F9C3F /* CoreImage.framework in Frameworks */,
 				A66B8C3717A3BD1100E95A07 /* UIKit.framework in Frameworks */,
 				A66B8C3917A3BD1100E95A07 /* Foundation.framework in Frameworks */,
-				77221A971CCFD9DA0054D349 /* libCHDataStructures.a in Frameworks */,
 				A66B8C3B17A3BD1100E95A07 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,62 +104,10 @@
 		77221A6C1CCFD9DA0054D349 /* thirdparty */ = {
 			isa = PBXGroup;
 			children = (
-				77221A6D1CCFD9DA0054D349 /* CHDataStructures */,
+				7707677B1CE62C5200E28C4B /* OrderedDictionary.swift */,
 				77221A941CCFD9DA0054D349 /* DALinedTextView */,
 			);
 			path = thirdparty;
-			sourceTree = "<group>";
-		};
-		77221A6D1CCFD9DA0054D349 /* CHDataStructures */ = {
-			isa = PBXGroup;
-			children = (
-				77221A6E1CCFD9DA0054D349 /* include */,
-				77221A931CCFD9DA0054D349 /* libCHDataStructures.a */,
-			);
-			path = CHDataStructures;
-			sourceTree = "<group>";
-		};
-		77221A6E1CCFD9DA0054D349 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				77221A6F1CCFD9DA0054D349 /* CHAbstractBinarySearchTree.h */,
-				77221A701CCFD9DA0054D349 /* CHAbstractBinarySearchTree_Internal.h */,
-				77221A711CCFD9DA0054D349 /* CHAbstractListCollection.h */,
-				77221A721CCFD9DA0054D349 /* CHAnderssonTree.h */,
-				77221A731CCFD9DA0054D349 /* CHAVLTree.h */,
-				77221A741CCFD9DA0054D349 /* CHBidirectionalDictionary.h */,
-				77221A751CCFD9DA0054D349 /* CHBinaryHeap.h */,
-				77221A761CCFD9DA0054D349 /* CHCircularBuffer.h */,
-				77221A771CCFD9DA0054D349 /* CHCircularBufferDeque.h */,
-				77221A781CCFD9DA0054D349 /* CHCircularBufferQueue.h */,
-				77221A791CCFD9DA0054D349 /* CHCircularBufferStack.h */,
-				77221A7A1CCFD9DA0054D349 /* CHDataStructures.h */,
-				77221A7B1CCFD9DA0054D349 /* CHDataStructures_Prefix.pch */,
-				77221A7C1CCFD9DA0054D349 /* CHDeque.h */,
-				77221A7D1CCFD9DA0054D349 /* CHDoublyLinkedList.h */,
-				77221A7E1CCFD9DA0054D349 /* CHHeap.h */,
-				77221A7F1CCFD9DA0054D349 /* CHLinkedList.h */,
-				77221A801CCFD9DA0054D349 /* CHListDeque.h */,
-				77221A811CCFD9DA0054D349 /* CHListQueue.h */,
-				77221A821CCFD9DA0054D349 /* CHListStack.h */,
-				77221A831CCFD9DA0054D349 /* CHMultiDictionary.h */,
-				77221A841CCFD9DA0054D349 /* CHMutableArrayHeap.h */,
-				77221A851CCFD9DA0054D349 /* CHMutableDictionary.h */,
-				77221A861CCFD9DA0054D349 /* CHMutableSet.h */,
-				77221A871CCFD9DA0054D349 /* CHOrderedDictionary.h */,
-				77221A881CCFD9DA0054D349 /* CHOrderedSet.h */,
-				77221A891CCFD9DA0054D349 /* CHQueue.h */,
-				77221A8A1CCFD9DA0054D349 /* CHRedBlackTree.h */,
-				77221A8B1CCFD9DA0054D349 /* CHSearchTree.h */,
-				77221A8C1CCFD9DA0054D349 /* CHSinglyLinkedList.h */,
-				77221A8D1CCFD9DA0054D349 /* CHSortedDictionary.h */,
-				77221A8E1CCFD9DA0054D349 /* CHSortedSet.h */,
-				77221A8F1CCFD9DA0054D349 /* CHStack.h */,
-				77221A901CCFD9DA0054D349 /* CHTreap.h */,
-				77221A911CCFD9DA0054D349 /* CHUnbalancedTree.h */,
-				77221A921CCFD9DA0054D349 /* Util.h */,
-			);
-			path = include;
 			sourceTree = "<group>";
 		};
 		77221A941CCFD9DA0054D349 /* DALinedTextView */ = {
@@ -420,6 +331,7 @@
 				77221A981CCFD9DA0054D349 /* DALinedTextView.m in Sources */,
 				A66B8CAD17A3D84800E95A07 /* AppDelegate.swift in Sources */,
 				A66B8CAE17A3D84800E95A07 /* ChecklistItem.swift in Sources */,
+				7707677C1CE62C5200E28C4B /* OrderedDictionary.swift in Sources */,
 				A66B8CAF17A3D84800E95A07 /* NotesViewController.swift in Sources */,
 				A66B8CB117A3D84800E95A07 /* DataModel.swift in Sources */,
 			);
@@ -509,6 +421,7 @@
 		A66B8C5A17A3BD1100E95A07 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "iOS Notes/Backlog Notes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -534,6 +447,7 @@
 		A66B8C5B17A3BD1100E95A07 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "iOS Notes/Backlog Notes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (

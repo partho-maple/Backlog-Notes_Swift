@@ -9,7 +9,7 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
     var itemDatesUnsorted: NSMutableArray?
     var itemDatesSorted: NSMutableArray?
     var tableDataSections: NSMutableArray = []
-    var tableDataSectionsDict: CHOrderedDictionary?
+    var tableDataSectionsDict: OrderedDictionary<String, [AnyObject]>?
     var tableDataSectionsDictKeyOrder: NSMutableOrderedSet?
 
     
@@ -55,7 +55,7 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     
     func sortTableDateToIndecesByDateWith(listItems: NSMutableArray) {
-        tableDataSectionsDict = CHOrderedDictionary()
+        tableDataSectionsDict = OrderedDictionary()
         tableDataSectionsDictKeyOrder = NSMutableOrderedSet()
         let cal: NSCalendar = NSCalendar.currentCalendar()
         let unitFlags: NSCalendarUnit = [.Hour, .Minute, .Second]
@@ -105,81 +105,81 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
             if NotesViewController.date(addingDate, isBetweenDate: today, andDate: now) {
                 TodayArray.append(item)
                 
-                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Today" }
+                let containsKey = tableDataSectionsDict!.orderedKeys.contains { return $0 as? String == "Today" }
                 if !containsKey {
-                    tableDataSectionsDict!.insertObject(TodayArray, forKey: "Today", atIndex: count)
+                    tableDataSectionsDict!.insertElementWithKey("Today", value: TodayArray, atIndex: Int(count))
                 }
                 
             }
             else if NotesViewController.date(addingDate, isBetweenDate: yesterday, andDate: today) {
                 YesterdayArray.append(item)
                 
-                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Yesterday" }
+                let containsKey = tableDataSectionsDict!.orderedKeys.contains { return $0 as? String == "Yesterday" }
                 if !containsKey {
-                    tableDataSectionsDict!.insertObject(YesterdayArray, forKey: "Yesterday", atIndex: count)
+                    tableDataSectionsDict!.insertElementWithKey("Yesterday", value: YesterdayArray, atIndex: Int(count))
                 }
                 
             }
             else if NotesViewController.date(addingDate, isBetweenDate: thisWeek, andDate: yesterday) {
                 ThisWeekArray.append(item)
                 
-                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "This Week" }
+                let containsKey = tableDataSectionsDict!.orderedKeys.contains { return $0 as? String == "This Week" }
                 if !containsKey {
-                    tableDataSectionsDict!.insertObject(ThisWeekArray, forKey: "This Week", atIndex: count)
+                    tableDataSectionsDict!.insertElementWithKey("This Week", value: ThisWeekArray, atIndex: Int(count))
                 }
                 
             }
             else if NotesViewController.date(addingDate, isBetweenDate: lastWeek, andDate: thisWeek) {
                 LastWeekArray.append(item)
                 
-                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Last Week" }
+                let containsKey = tableDataSectionsDict!.orderedKeys.contains { return $0 as? String == "Last Week" }
                 if !containsKey {
-                    tableDataSectionsDict!.insertObject(LastWeekArray, forKey: "Last Week", atIndex: count)
+                    tableDataSectionsDict!.insertElementWithKey("Last Week", value: LastWeekArray, atIndex: Int(count))
                 }
  
             }
             else if NotesViewController.date(addingDate, isBetweenDate: twoWeeksAgo, andDate: lastWeek) {
                 TwoWeeksAgoArray.append(item)
                 
-                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Two Weeks Ago" }
+                let containsKey = tableDataSectionsDict!.orderedKeys.contains { return $0 as? String == "Two Weeks Ago" }
                 if !containsKey {
-                    tableDataSectionsDict!.insertObject(TwoWeeksAgoArray, forKey: "Two Weeks Ago", atIndex: count)
+                    tableDataSectionsDict!.insertElementWithKey("Two Weeks Ago", value: TwoWeeksAgoArray, atIndex: Int(count))
                 }
 
             }
             else if NotesViewController.date(addingDate, isBetweenDate: thisMonth, andDate: twoWeeksAgo) {
                 ThisMonthArray.append(item)
                 
-                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "This Month" }
+                let containsKey = tableDataSectionsDict!.orderedKeys.contains { return $0 as? String == "This Month" }
                 if !containsKey {
-                    tableDataSectionsDict!.insertObject(ThisMonthArray, forKey: "This Month", atIndex: count)
+                    tableDataSectionsDict!.insertElementWithKey("This Month", value: ThisMonthArray, atIndex: Int(count))
                 }
 
             }
             else if NotesViewController.date(addingDate, isBetweenDate: lastMonth, andDate: thisMonth) {
                 LastMonthArray.append(item)
                 
-                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Last Month" }
+                let containsKey = tableDataSectionsDict!.orderedKeys.contains { return $0 as? String == "Last Month" }
                 if !containsKey {
-                    tableDataSectionsDict!.insertObject(LastMonthArray, forKey: "Last Month", atIndex: count)
+                    tableDataSectionsDict!.insertElementWithKey("Last Month", value: LastMonthArray, atIndex: Int(count))
                 }
 
             }
             else if NotesViewController.date(addingDate, isBetweenDate: twoMonthsAgo, andDate: lastMonth) {
                 TwoMonthsAgoArray.append(item)
                 
-                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Two Months Ago" }
+                let containsKey = tableDataSectionsDict!.orderedKeys.contains { return $0 as? String == "Two Months Ago" }
                 if !containsKey {
-                    tableDataSectionsDict!.insertObject(TwoMonthsAgoArray, forKey: "Two Months Ago", atIndex: count)
+                    tableDataSectionsDict!.insertElementWithKey("Two Months Ago", value: TwoMonthsAgoArray, atIndex: Int(count))
                 }
 
             }
             else {
                 LongAgoArray.append(item)
                 
-                let containsKey = tableDataSectionsDict!.allKeys.contains { return $0 as? String == "Long Ago" }
+                let containsKey = tableDataSectionsDict!.orderedKeys.contains { return $0 as? String == "Long Ago" }
                 if !containsKey {
-                    tableDataSectionsDict!.insertObject(LongAgoArray, forKey: "Long Ago", atIndex: count)
+                    tableDataSectionsDict!.insertElementWithKey("ong Ago", value: LongAgoArray, atIndex: Int(count))
                 }
 
             }
@@ -313,15 +313,15 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        var keys: [AnyObject] = tableDataSectionsDict!.orderedKeys
         let aKey: String = keys[section] as! String
-        let eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey] as! [AnyObject])
+        let eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey])!
         return eventsOnThisDay.count
     }
 
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String {
-        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        var keys: [AnyObject] = tableDataSectionsDict!.orderedKeys
         let aKey: String = keys[section] as! String
         return aKey
     }
@@ -331,10 +331,10 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
         let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("ChecklistItem")!
             //    ChecklistItem *item = [items objectAtIndex:indexPath.row];
             //    [self configureTextForCell:cell withChecklistItem:item];
-        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        var keys: [AnyObject] = tableDataSectionsDict!.orderedKeys
         let aKey: String = keys[indexPath.section] as! String
             //    NSDate *dateRepresentingThisDay = [items objectAtIndex:indexPath.section];
-        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey] as! [AnyObject])
+        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey])!
         let item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
         self.configureTextForCell(cell, withChecklistItem: item)
         return cell
@@ -342,9 +342,9 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
     
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        var keys: [AnyObject] = tableDataSectionsDict!.orderedKeys
         let aKey: String = keys[indexPath.section] as! String
-        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey] as! [AnyObject])
+        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey])!
         let item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
         for i in 0 ..< items!.count {
             let itemToDelete: ChecklistItem = items![i] as! ChecklistItem
@@ -384,7 +384,7 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
         //    tempLabel.shadowColor = [UIColor blackColor];
         //    tempLabel.shadowOffset = CGSizeMake(0,2);
         tempLabel.textColor = TableSectionHeaderTextColorYellow
-        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        var keys: [AnyObject] = tableDataSectionsDict!.orderedKeys
         let aKey: String = keys[section] as! String
         tempLabel.text = aKey
         // probably from array
@@ -405,9 +405,9 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        var keys: [AnyObject] = tableDataSectionsDict!.orderedKeys
         let aKey: String = keys[indexPath.section] as! String
-        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey] as! [AnyObject])
+        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey])!
         let item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
         self.performSegueWithIdentifier("EditItem", sender: item)
     }
@@ -415,9 +415,9 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
     
 
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        var keys: [AnyObject] = tableDataSectionsDict!.allKeys
+        var keys: [AnyObject] = tableDataSectionsDict!.orderedKeys
         let aKey: String = keys[indexPath.section] as! String
-        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey] as! [AnyObject])
+        var eventsOnThisDay: [AnyObject] = (tableDataSectionsDict![aKey])!
         let item: ChecklistItem = eventsOnThisDay[indexPath.row] as! ChecklistItem
         self.performSegueWithIdentifier("EditItem", sender: item)
     }
