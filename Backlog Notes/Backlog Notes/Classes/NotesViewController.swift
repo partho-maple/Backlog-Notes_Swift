@@ -273,11 +273,21 @@ class NotesViewController: UITableViewController, AddItemViewControllerDelegate 
 //            self.loadChecklistItems()
 //        }
 //    }
+
     
-    convenience required init(coder aDecoder: NSCoder) {
-        self.init(coder: aDecoder)
+//    convenience required init(coder aDecoder: NSCoder) {
+//        self.init(coder: aDecoder)
+//        self.loadChecklistItems()
+//    }
+    
+    
+    required convenience init(coder aDecoder: NSCoder) {
+        print("init coder")
+//        self.init()
+        self.init(nibName:nil, bundle:nil)
         self.loadChecklistItems()
     }
+
  
 
     

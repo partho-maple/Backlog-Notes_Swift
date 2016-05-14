@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A66B8C3217A3BD1100E95A07"
+               BlueprintIdentifier = "772D29F01CE77E4500D9165B"
                BuildableName = "Backlog Notes.app"
                BlueprintName = "Backlog Notes"
                ReferencedContainer = "container:Backlog Notes.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A66B8C3217A3BD1100E95A07"
+            BlueprintIdentifier = "772D29F01CE77E4500D9165B"
             BuildableName = "Backlog Notes.app"
             BlueprintName = "Backlog Notes"
             ReferencedContainer = "container:Backlog Notes.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A66B8C3217A3BD1100E95A07"
+            BlueprintIdentifier = "772D29F01CE77E4500D9165B"
             BuildableName = "Backlog Notes.app"
             BlueprintName = "Backlog Notes"
             ReferencedContainer = "container:Backlog Notes.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A66B8C3217A3BD1100E95A07"
+            BlueprintIdentifier = "772D29F01CE77E4500D9165B"
             BuildableName = "Backlog Notes.app"
             BlueprintName = "Backlog Notes"
             ReferencedContainer = "container:Backlog Notes.xcodeproj">
